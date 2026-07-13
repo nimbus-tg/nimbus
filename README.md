@@ -114,6 +114,11 @@ config glue (`botProject()` teaches vitest the platform's bare-import scheme).
   `session`
 - sessions: `session()` middleware with pluggable storage; `sqliteStorage(table)` keeps
   state in your own schema table, `memoryStorage()` for tests
+- wizards: multi-step dialogs as a plain FSM in the session (no generator replay --
+  state must survive across isolate invocations). commands cut through an active flow,
+  `ctx.wizard.stay()` re-asks a step, see the example bot
+- i18n: flat dictionaries with `{var}` interpolation, locale from `language_code` or
+  `ctx.session.locale`
 - `InlineKeyboard` / `Keyboard` builders, drop them into `reply_markup` directly
 - vendor pipeline: prebuilt runtime copy + handler shim generation from the route table
 - harness: query builder (select/insert/update/delete, eq/and/or/like/inArray, column
@@ -122,7 +127,6 @@ config glue (`botProject()` teaches vitest the platform's bare-import scheme).
 
 ## Not yet
 
-- conversations/wizard flows, i18n (next milestones)
 - joins, upsert, order by in the harness query builder
 - running handlers in an actual V8 sandbox (harness is in-process for now)
 - file upload/download -- the platform itself doesn't support it
