@@ -85,9 +85,13 @@ Both are dev dependencies. Nothing from npm ever runs on the platform; the vendo
 
 ## What works today
 
-- router: `bot.command()`, `bot.hears()`, `bot.on(type)`, koa-style `use()` middleware,
-  `bot.catch()`
-- ctx: `reply()`, `api`, `update`, `from`, `chat`, `match`
+- router: `bot.command()`, `bot.hears()`, `bot.on('callback_query')` /
+  `bot.on('message:text')`, koa-style `use()` middleware, `bot.catch()`
+- ctx: `reply()`, `answerCallbackQuery()`, `api`, `update`, `from`, `chat`, `match`,
+  `session`
+- sessions: `session()` middleware with pluggable storage; `sqliteStorage(table)` keeps
+  state in your own schema table, `memoryStorage()` for tests
+- `InlineKeyboard` / `Keyboard` builders, drop them into `reply_markup` directly
 - vendor pipeline: prebuilt runtime copy + handler shim generation from the route table
 - harness: query builder (select/insert/update/delete, eq/and/or/like/inArray, column
   modes timestamp/boolean/json), recorded api with overridable responses, text-only
@@ -95,7 +99,7 @@ Both are dev dependencies. Nothing from npm ever runs on the platform; the vendo
 
 ## Not yet
 
-- sessions, conversations, keyboards, i18n (next milestones)
+- conversations/wizard flows, i18n (next milestones)
 - joins, upsert, order by in the harness query builder
 - running handlers in an actual V8 sandbox (harness is in-process for now)
 - file upload/download -- the platform itself doesn't support it
