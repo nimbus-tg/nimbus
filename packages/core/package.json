@@ -1,6 +1,6 @@
 {
   "name": "@nimbus-tg/core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Bot framework for Telegram BotCloud. Vendors itself into your project as plain JS.",
   "license": "MIT",
   "type": "module",

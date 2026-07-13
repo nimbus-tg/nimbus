@@ -1,6 +1,6 @@
 {
   "name": "@nimbus-tg/harness",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Local emulation of the BotCloud runtime: sdk/db over sqlite, recorded Bot API, vitest glue.",
   "license": "MIT",
   "type": "module",
