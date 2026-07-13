@@ -1,0 +1,14 @@
+{
+  "name": "hello-bot",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "vendor": "nimbus vendor",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@nimbus-tg/core": "workspace:*",
+    "@nimbus-tg/harness": "workspace:*",
+    "vitest": "^3.2.4"
+  }
+}

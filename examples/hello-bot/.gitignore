@@ -1,0 +1,4 @@
+# nimbus vendor output
+lib/_vendor/
+handlers/
+.nimbus/
