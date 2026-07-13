@@ -19,5 +19,11 @@
   },
   "devDependencies": {
     "vitest": "^3.2.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nimbus-tg/nimbus.git",
+    "directory": "packages/create-nimbus-bot"
+  },
+  "homepage": "https://github.com/nimbus-tg/nimbus"
 }
