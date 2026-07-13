@@ -2,6 +2,7 @@ import { beforeEach, expect, it } from 'vitest'
 import { createHarness, updates } from '@nimbus-tg/harness'
 import * as schema from '../schema.js'
 import handler from '../handlers/message.js'
+import callbackHandler from '../handlers/callback_query.js'
 
 let h
 beforeEach(() => {
@@ -39,4 +40,22 @@ it('answers ping', async () => {
 it('stays silent on anything else', async () => {
   await h.dispatch(handler, updates.message('what is this'))
   expect(h.api.calls).toHaveLength(0)
+})
+
+it('sends the inline menu', async () => {
+  await h.dispatch(handler, updates.message('/menu'))
+  const [payload] = h.api.sent('sendMessage')
+  const markup = JSON.parse(JSON.stringify(payload.reply_markup))
+  expect(markup.inline_keyboard[0][0]).toEqual({ text: 'click me', callback_data: 'click' })
+})
+
+it('counts clicks in the session across updates', async () => {
+  await h.dispatch(callbackHandler, updates.callbackQuery('click'))
+  await h.dispatch(callbackHandler, updates.callbackQuery('click'))
+
+  const answers = h.api.sent('answerCallbackQuery').map((p) => p.text)
+  expect(answers).toEqual(['1 so far', '2 so far'])
+
+  const [row] = await h.db.select().from(schema.sessions)
+  expect(JSON.parse(row.data)).toEqual({ clicks: 2 })
 })

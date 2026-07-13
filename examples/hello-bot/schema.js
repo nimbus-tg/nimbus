@@ -6,3 +6,8 @@ export const users = table('users', {
   greets: integer('greets').notNull().default(0),
   firstSeen: integer('first_seen', { mode: 'timestamp' }),
 })
+
+export const sessions = table('sessions', {
+  key: text('key').primaryKey(),
+  data: text('data'),
+})
