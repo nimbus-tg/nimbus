@@ -1,0 +1,14 @@
+{
+  "name": "my-nimbus-bot",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "vendor": "nimbus vendor",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@nimbus-tg/core": "^0.0.1",
+    "@nimbus-tg/harness": "^0.0.1",
+    "vitest": "^3.2.4"
+  }
+}

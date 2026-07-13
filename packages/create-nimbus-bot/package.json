@@ -1,0 +1,23 @@
+{
+  "name": "create-nimbus-bot",
+  "version": "0.0.1",
+  "description": "Scaffold a Telegram BotCloud bot with nimbus",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "create-nimbus-bot": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "template"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^3.2.4"
+  }
+}
