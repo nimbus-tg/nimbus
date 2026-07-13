@@ -11,9 +11,10 @@
     }
   },
   "bin": {
-    "nimbus": "./dist/cli.js"
+    "nimbus": "./bin/nimbus.js"
   },
   "files": [
+    "bin",
     "dist"
   ],
   "scripts": {
