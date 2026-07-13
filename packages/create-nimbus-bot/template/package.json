@@ -7,8 +7,8 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "@nimbus-tg/core": "^0.0.1",
-    "@nimbus-tg/harness": "^0.0.1",
+    "@nimbus-tg/core": "^0.1.0",
+    "@nimbus-tg/harness": "^0.1.0",
     "vitest": "^3.2.4"
   }
 }

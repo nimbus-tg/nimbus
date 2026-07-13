@@ -1,6 +1,6 @@
 {
   "name": "create-nimbus-bot",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Scaffold a Telegram BotCloud bot with nimbus",
   "license": "MIT",
   "type": "module",
