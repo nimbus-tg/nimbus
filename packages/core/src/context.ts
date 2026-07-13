@@ -57,4 +57,10 @@ export class Context {
     if (!chat) throw new Error('reply(): no chat in this update')
     return api.sendMessage!({ chat_id: chat.id, text, ...extra }) as Promise<Message>
   }
+
+  answerCallbackQuery(extra: Record<string, unknown> = {}): Promise<boolean> {
+    const cq = this.callbackQuery
+    if (!cq) throw new Error('answerCallbackQuery(): not a callback_query update')
+    return api.answerCallbackQuery!({ callback_query_id: cq.id, ...extra }) as Promise<boolean>
+  }
 }

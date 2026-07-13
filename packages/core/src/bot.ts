@@ -7,9 +7,9 @@ export class Bot extends Composer {
   #types = new Set<string>()
   #onError?: ErrorHandler
 
-  on(type: string, ...mw: Middleware[]): this {
-    this.#types.add(type)
-    return super.on(type, ...mw)
+  on(filter: string, ...mw: Middleware[]): this {
+    this.#types.add(filter.split(':')[0]!)
+    return super.on(filter, ...mw)
   }
 
   command(name: string, ...mw: Middleware[]): this {

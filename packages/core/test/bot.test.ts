@@ -79,6 +79,17 @@ it('on() filters by update type', async () => {
   expect(seen).toEqual(['clicked'])
 })
 
+it('on() with field filter', async () => {
+  const bot = new Bot()
+  const seen: string[] = []
+  bot.on('message:photo', () => seen.push('photo'))
+  bot.on('message:text', () => seen.push('text'))
+
+  await bot.handle('message', msg('hello'))
+  expect(seen).toEqual(['text'])
+  expect(bot.updateTypes()).toEqual(['message'])
+})
+
 it('updateTypes reflects registrations', () => {
   const bot = new Bot()
   bot.command('start', () => {})

@@ -29,8 +29,16 @@ export class Composer {
     return this
   }
 
-  on(type: string, ...mw: Middleware[]): this {
-    return this.use(branch((ctx) => ctx.updateType === type, mw))
+  // 'message', or 'message:text' to also require a field on the payload
+  on(filter: string, ...mw: Middleware[]): this {
+    const [type, field] = filter.split(':')
+    return this.use(
+      branch((ctx) => {
+        if (ctx.updateType !== type) return false
+        if (!field) return true
+        return (ctx.payload as Record<string, unknown> | undefined)?.[field] !== undefined
+      }, mw),
+    )
   }
 
   command(name: string, ...mw: Middleware[]): this {
