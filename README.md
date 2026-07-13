@@ -1,10 +1,35 @@
 # nimbus
 
+[![ci](https://github.com/nimbus-tg/nimbus/actions/workflows/ci.yml/badge.svg)](https://github.com/nimbus-tg/nimbus/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/%40nimbus-tg%2Fcore?label=%40nimbus-tg%2Fcore)](https://www.npmjs.com/package/@nimbus-tg/core)
+
 Framework and local test harness for Telegram BotCloud (the serverless bot platform).
 
 Status: pre-alpha. The platform itself is invite-only and its docs are incomplete, so
 parts of this are built against assumptions -- grep for `TODO-VERIFY` before trusting
 anything platform-facing.
+
+## Getting started
+
+```
+npx create-nimbus-bot my-bot
+cd my-bot
+npm install
+npm test
+```
+
+That scaffolds a working bot with a schema, tests and the vitest glue already wired,
+and the tests pass offline before you ever touch the platform.
+
+Adding to an existing project instead:
+
+```
+npm i -D @nimbus-tg/core @nimbus-tg/harness
+```
+
+Both are dev dependencies -- nothing from npm runs on the platform. `nimbus vendor`
+(ships with core) compiles the framework into `lib/_vendor/nimbus.js`, and that file
+is the only framework code that deploys.
 
 ## Why
 
@@ -77,11 +102,9 @@ config glue (`botProject()` teaches vitest the platform's bare-import scheme).
 
 | package | what |
 | --- | --- |
-| `@nimbus-tg/core` | Bot/Composer/Context runtime + `nimbus vendor` CLI |
-| `@nimbus-tg/harness` | `sdk` and `sdk/db` reimplemented over better-sqlite3, recorded mock Bot API, update factories |
-
-Both are dev dependencies. Nothing from npm ever runs on the platform; the vendored
-`lib/_vendor/nimbus.js` is the only framework code that ships.
+| [`@nimbus-tg/core`](https://www.npmjs.com/package/@nimbus-tg/core) | Bot/Composer/Context runtime + `nimbus vendor` CLI |
+| [`@nimbus-tg/harness`](https://www.npmjs.com/package/@nimbus-tg/harness) | `sdk` and `sdk/db` reimplemented over better-sqlite3, recorded mock Bot API, update factories |
+| [`create-nimbus-bot`](https://www.npmjs.com/package/create-nimbus-bot) | project scaffolder |
 
 ## What works today
 
