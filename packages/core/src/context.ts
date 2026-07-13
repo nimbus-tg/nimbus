@@ -1,5 +1,6 @@
 import { api } from 'sdk'
 import type { CallbackQuery, Chat, Message, Update, User } from './types'
+import type { WizardControl } from './wizard'
 
 // The platform hands each handler an unpacked payload plus a ctx whose only
 // documented field is the raw update. TODO-VERIFY: what else lives on it.
@@ -15,6 +16,9 @@ export class Context {
   readonly update: Update
   match: RegExpMatchArray | string | null = null
   session?: unknown
+  // set by wizards() / i18n() middleware
+  wizard?: WizardControl
+  t?: (key: string, vars?: Record<string, unknown>) => string
 
   constructor(updateType: string, payload: unknown, raw: RawCtx = {}) {
     this.updateType = updateType
