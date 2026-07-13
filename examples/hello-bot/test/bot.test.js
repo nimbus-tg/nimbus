@@ -49,6 +49,17 @@ it('sends the inline menu', async () => {
   expect(markup.inline_keyboard[0][0]).toEqual({ text: 'click me', callback_data: 'click' })
 })
 
+it('rename wizard: ask, answer, persist', async () => {
+  await h.dispatch(handler, updates.message('/rename'))
+  await h.dispatch(handler, updates.message('Neo'))
+
+  const texts = h.api.sent('sendMessage').map((p) => p.text)
+  expect(texts).toEqual(['what should i call you?', 'got it, Neo'])
+
+  const [row] = await h.db.select().from(schema.users)
+  expect(row).toMatchObject({ id: 10, name: 'Neo' })
+})
+
 it('counts clicks in the session across updates', async () => {
   await h.dispatch(callbackHandler, updates.callbackQuery('click'))
   await h.dispatch(callbackHandler, updates.callbackQuery('click'))

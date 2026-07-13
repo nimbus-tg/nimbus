@@ -1,4 +1,4 @@
-import { Bot, InlineKeyboard, session, sqliteStorage } from 'lib/_vendor/nimbus'
+import { Bot, InlineKeyboard, Wizard, session, sqliteStorage, wizards } from 'lib/_vendor/nimbus'
 import { db } from 'sdk'
 import { eq } from 'sdk/db'
 import { users, sessions } from 'schema'
@@ -6,6 +6,19 @@ import { users, sessions } from 'schema'
 const bot = new Bot()
 
 bot.use(session({ storage: sqliteStorage(sessions), initial: () => ({ clicks: 0 }) }))
+
+const rename = new Wizard('rename')
+  .step((ctx) => ctx.reply('what should i call you?'))
+  .step(async (ctx) => {
+    const name = ctx.message.text
+    const [row] = await db.select().from(users).where(eq(users.id, ctx.from.id))
+    if (row) await db.update(users).set({ name }).where(eq(users.id, ctx.from.id))
+    else await db.insert(users).values({ id: ctx.from.id, name, greets: 0, firstSeen: new Date() })
+    await ctx.reply(`got it, ${name}`)
+  })
+
+bot.use(wizards(rename))
+bot.command('rename', (ctx) => ctx.wizard.enter('rename'))
 
 bot.command('start', async (ctx) => {
   const [seen] = await db.select().from(users).where(eq(users.id, ctx.from.id))
